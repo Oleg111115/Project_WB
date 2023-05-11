@@ -4,9 +4,13 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('sqlite:///WB.db')
-Base = declarative_base(bind=engine)
+
 Session = sessionmaker(bind=engine)
 session = Session()
+
+# создаем базовый класс, от которого будут наследоваться все остальные классы-модели
+Base = declarative_base()
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -38,7 +42,7 @@ class Product(Base):
     query = relationship("Query", backref="products")
 
 # Создание таблиц
-Base.metadata.create_all()
+Base.metadata.create_all(engine)
 
 # Закрытие соединения с базой данных
 session.close()
