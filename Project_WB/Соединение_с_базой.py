@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -23,6 +24,7 @@ class Query(Base):
     user_id = Column(Integer, ForeignKey('users.user_id'))
     query = Column(String)
     discount = Column(Float)
+    created_at = Column(DateTime, default=datetime.now)
     user = relationship("User", backref="queries")
 
 # таблица товары
